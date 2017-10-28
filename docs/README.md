@@ -1,0 +1,1 @@
+[View the documentation here](https://aydenp.github.io/PowerSchool-API/)

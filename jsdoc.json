@@ -1,0 +1,15 @@
+{
+    "recurseDepth": 10,
+    "sourceType": "module",
+    "source": {
+        "include": [ "." ],
+        "exclude": [ "./test.js", "./node_modules/" ]
+    },
+    "opts": {
+        "encoding": "utf8",
+        "destination": "./docs",
+        "recurse": true,
+        "readme": "./README.md",
+        "package": "./package.json"
+    }
+}

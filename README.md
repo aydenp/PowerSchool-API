@@ -27,3 +27,10 @@ If you find an issue in the code or while using it, [create an issue](/issues/ne
 ## License
 
 This project is licensed under the [MIT license](/LICENSE). Please make sure you comply with its terms while using the library.
+
+
+## Links
+
+- [My website](https://www.madebyayden.co)
+- [GitHub](https://www.github.com/aydenp/PowerSchool-API)
+- [Documentation](https://aydenp.github.io/PowerSchool-API/)

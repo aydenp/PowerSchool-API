@@ -2,7 +2,7 @@ const PowerSchoolAPI = require("./index");
 const readline = require("readline-sync");
 
 // Get information from the user.
-const url = readline.question("Enter the PowerSchool installation URL (such as: http://publicportal.rest.powerschool.pearson.com): ");
+const url = readline.question("Enter the PowerSchool installation URL (such as: http://sales.powerschool.com): ");
 const username = readline.question("Enter your PowerSchool username: ");
 const password = readline.question("Enter your PowerSchool password: ");
 if(!url || !username || !password) return console.error("Invalid information entered.");

@@ -5,7 +5,7 @@ const PowerSchoolUser = require("./models/PowerSchoolUser");
 class PowerSchoolAPI {
     /**
      * Create an API wrapper.
-     * @param {string} url - The main URL of the PowerSchool installation, such as "http://publicportal.rest.powerschool.pearson.com".
+     * @param {string} url - The main URL of the PowerSchool installation, such as "http://sales.powerschool.com".
      * @param {string} [apiUsername] - The API username to use for logging in, if your installation has a different one. For most installations, the default provided value should work.
      * @param {string} [apiPassword] - The API password to use for logging in, if your installation has a different one. For most installations, the default provided value should work.
      */

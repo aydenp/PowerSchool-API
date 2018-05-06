@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/PowerSchoolReportingTerm.js</title>
+    <title>JSDoc: Source: models/PowerSchoolAttendanceCode.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/PowerSchoolReportingTerm.js</h1>
+    <h1 class="page-title">Source: models/PowerSchoolAttendanceCode.js</h1>
 
     
 
@@ -27,78 +27,70 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** 
- * A PowerSchool reporting term. Marks are divided and given out in reporting terms.
+ * A code assigned to a PowerSchool attendance record.
  * @hideconstructor
 */
-class PowerSchoolReportingTerm {
-    constructor(api, id, title, termID, sortOrder, suppressGrades, suppressPercents, abbreviatedTitle = null) {
+class PowerSchoolAttendanceCode {
+    constructor(api, id, code, description, type, schoolNumber, sortOrder, yearID) {
         this.api = api;
-        
+
         /**
-         * The ID of this reporting term.
+         * The ID of this attendance code.
          * @member {number}
          */
         this.id = id;
-        
-        /**
-         * The title of this reporting term.
-         * @member {string}
-         */
-        this.title = title;
 
         /**
-         * The ID of this reporting term's term.
+         * The string representing this code.
+         * @member {string}
+         */
+        this.code = code;
+
+        /**
+         * A short description of this code.
+         * @member {string}
+         */
+        this.description = description;
+
+        /**
+         * The type of this code.
          * @member {number}
          */
-        this.termID = termID;
-        
+        this.type = type;
+
         /**
-         * A number to use to sort this reporting term among others.
+         * The number of the school this code belongs to.
+         * @member {number}
+         */
+        this.schoolNumber = schoolNumber;
+
+        /**
+         * A number representing the order this code should appear in when sorted.
          * @member {number}
          */
         this.sortOrder = sortOrder;
 
         /**
-         * Whether or not to supress showing grades from this reporting term.
-         * @member {boolean}
+         * The year ID this code is valid for.
+         * @member {number}
          */
-        this.suppressGrades = suppressGrades;
-
-        /**
-         * Whether or not to supress showing grade percentages from this reporting term.
-         * @member {boolean}
-         */
-        this.suppressPercents = suppressPercents;
-
-        /**
-         * The abbreviated title of this reporting term, for use in smaller spaces.
-         * @member {string}
-         */
-        this.abbreviatedTitle = this.abbreviatedTitle;
+        this.yearID = yearID;
     }
 
     static fromData(data, api) {
-        return new PowerSchoolReportingTerm(api, data.id, data.title, data.termid, data.sortOrder, data.suppressGrades, data.suppressPercents, data.abbreviation);
-    }
-    
-    /**
-     * Get the term this reporting term is from.
-     * @return {PowerSchoolTerm}
-     */
-    getTerm() {
-        return this.api._cachedInfo.terms[this.termID];
+        return new PowerSchoolAttendanceCode(api, data.id, data.attCode, data.description, data.codeType, data.schoolid, data.sortorder, data.yearid);
     }
 
     /**
-     * Get the final grades returned from this reporting term.
-     * @return {Array.&lt;PowerSchoolFinalGrade>}
+     * Get the school this code belongs to.
+     * @return {PowerSchoolSchool}
      */
-    getFinalGrades() {
-        return Object.values(this.api._cachedInfo.finalGrades).filter((g) => g.reportingTermID == this.id);
+    getSchool() {
+        return this.api._cachedInfo.schools[this.schoolNumber];
     }
 }
 
-module.exports = PowerSchoolReportingTerm;</code></pre>
+module.exports = PowerSchoolAttendanceCode;</code></pre>
         </article>
     </section>
 

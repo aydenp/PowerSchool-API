@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/PowerSchoolReportingTerm.js</title>
+    <title>JSDoc: Source: models/PowerSchoolAssignmentCategory.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/PowerSchoolReportingTerm.js</h1>
+    <h1 class="page-title">Source: models/PowerSchoolAssignmentCategory.js</h1>
 
     
 
@@ -27,78 +27,56 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** 
- * A PowerSchool reporting term. Marks are divided and given out in reporting terms.
+ * A category for a PowerSchool assignment.
  * @hideconstructor
 */
-class PowerSchoolReportingTerm {
-    constructor(api, id, title, termID, sortOrder, suppressGrades, suppressPercents, abbreviatedTitle = null) {
+class PowerSchoolAssignmentCategory {
+    constructor(api, id, name, abbreviation, description, gradeBookType) {
         this.api = api;
-        
+
         /**
-         * The ID of this reporting term.
+         * The ID of this assignment.
          * @member {number}
          */
         this.id = id;
-        
+
         /**
-         * The title of this reporting term.
+         * The name of this category.
          * @member {string}
          */
-        this.title = title;
+        this.name = name;
 
         /**
-         * The ID of this reporting term's term.
-         * @member {number}
-         */
-        this.termID = termID;
-        
-        /**
-         * A number to use to sort this reporting term among others.
-         * @member {number}
-         */
-        this.sortOrder = sortOrder;
-
-        /**
-         * Whether or not to supress showing grades from this reporting term.
-         * @member {boolean}
-         */
-        this.suppressGrades = suppressGrades;
-
-        /**
-         * Whether or not to supress showing grade percentages from this reporting term.
-         * @member {boolean}
-         */
-        this.suppressPercents = suppressPercents;
-
-        /**
-         * The abbreviated title of this reporting term, for use in smaller spaces.
+         * A shorter name for this category.
          * @member {string}
          */
-        this.abbreviatedTitle = this.abbreviatedTitle;
+        this.abbreviation = abbreviation;
+
+        /**
+         * A description of this category, if available.
+         * @member {string}
+         */
+        this.description = description;
+
+        /**
+         * The grade book type for this assignment.
+         * @member {number}
+         */
+        this.gradeBookType = gradeBookType;
+
+        /**
+         * The assignments in this category.
+         * @member {Array.&lt;PowerSchoolAssignment>}
+         */
+        this.assignments = [];
     }
 
     static fromData(data, api) {
-        return new PowerSchoolReportingTerm(api, data.id, data.title, data.termid, data.sortOrder, data.suppressGrades, data.suppressPercents, data.abbreviation);
-    }
-    
-    /**
-     * Get the term this reporting term is from.
-     * @return {PowerSchoolTerm}
-     */
-    getTerm() {
-        return this.api._cachedInfo.terms[this.termID];
-    }
-
-    /**
-     * Get the final grades returned from this reporting term.
-     * @return {Array.&lt;PowerSchoolFinalGrade>}
-     */
-    getFinalGrades() {
-        return Object.values(this.api._cachedInfo.finalGrades).filter((g) => g.reportingTermID == this.id);
+        return new PowerSchoolAssignmentCategory(api, data.id, data.name, data.abbreviation, data.description, data.gradeBookType);
     }
 }
 
-module.exports = PowerSchoolReportingTerm;</code></pre>
+module.exports = PowerSchoolAssignmentCategory;</code></pre>
         </article>
     </section>
 

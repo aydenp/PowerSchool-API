@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/PowerSchoolReportingTerm.js</title>
+    <title>JSDoc: Source: models/PowerSchoolAttendanceRecord.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/PowerSchoolReportingTerm.js</h1>
+    <h1 class="page-title">Source: models/PowerSchoolAttendanceRecord.js</h1>
 
     
 
@@ -27,78 +27,92 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** 
- * A PowerSchool reporting term. Marks are divided and given out in reporting terms.
+ * A PowerSchool attendance record, such as a deviation from normal attendance.
  * @hideconstructor
 */
-class PowerSchoolReportingTerm {
-    constructor(api, id, title, termID, sortOrder, suppressGrades, suppressPercents, abbreviatedTitle = null) {
+class PowerSchoolAttendanceRecord {
+    constructor(api, id, codeID, comment, date, schoolNumber, periodID, studentID, totalMinutes) {
         this.api = api;
-        
+
         /**
-         * The ID of this reporting term.
+         * The ID of this attendance code.
          * @member {number}
          */
         this.id = id;
-        
-        /**
-         * The title of this reporting term.
-         * @member {string}
-         */
-        this.title = title;
 
         /**
-         * The ID of this reporting term's term.
+         * The identifier for this attendance record's code.
          * @member {number}
          */
-        this.termID = termID;
-        
-        /**
-         * A number to use to sort this reporting term among others.
-         * @member {number}
-         */
-        this.sortOrder = sortOrder;
+        this.codeID = codeID;
 
         /**
-         * Whether or not to supress showing grades from this reporting term.
-         * @member {boolean}
-         */
-        this.suppressGrades = suppressGrades;
-
-        /**
-         * Whether or not to supress showing grade percentages from this reporting term.
-         * @member {boolean}
-         */
-        this.suppressPercents = suppressPercents;
-
-        /**
-         * The abbreviated title of this reporting term, for use in smaller spaces.
+         * A comment left with this record.
          * @member {string}
          */
-        this.abbreviatedTitle = this.abbreviatedTitle;
+        this.comment = comment;
+
+        /**
+         * The date the attendance for this record occurred on.
+         * @member {Date}
+         */
+        this.date = date;
+
+        /**
+         * The number of the school this record was created by.
+         * @member {number}
+         */
+        this.schoolNumber = schoolNumber;
+
+        /**
+         * The identifier of the period this record covers.
+         * @member {number}
+         */
+        this.periodID = periodID;
+
+        /**
+         * The identifier of the student this record involves.
+         * @member {number}
+         */
+        this.studentID = studentID;
+
+        /**
+         * The number of minutes this record accounts for, if not all (zero).
+         * @member {number}
+         */
+        this.totalMinutes = totalMinutes;
     }
 
     static fromData(data, api) {
-        return new PowerSchoolReportingTerm(api, data.id, data.title, data.termid, data.sortOrder, data.suppressGrades, data.suppressPercents, data.abbreviation);
-    }
-    
-    /**
-     * Get the term this reporting term is from.
-     * @return {PowerSchoolTerm}
-     */
-    getTerm() {
-        return this.api._cachedInfo.terms[this.termID];
+        return new PowerSchoolAttendanceRecord(api, data.id, data.attCodeid, data.attComment, new Date(data.attDate), data.schoolid, data.periodid, data.studentid, data.totalMinutes);
     }
 
     /**
-     * Get the final grades returned from this reporting term.
-     * @return {Array.&lt;PowerSchoolFinalGrade>}
+     * Get the school this record belongs to.
+     * @return {PowerSchoolSchool}
      */
-    getFinalGrades() {
-        return Object.values(this.api._cachedInfo.finalGrades).filter((g) => g.reportingTermID == this.id);
+    getSchool() {
+        return this.api._cachedInfo.schools[this.schoolNumber];
+    }
+
+    /**
+     * Get the period this record covers.
+     * @return {PowerSchoolPeriod}
+     */
+    getPeriod() {
+        return this.api._cachedInfo.periods[this.periodID];
+    }
+
+    /**
+     * Get the code of this record.
+     * @return {PowerSchoolAttendanceCode}
+     */
+    getCode() {
+        return this.api._cachedInfo.attendanceCodes[this.codeID];
     }
 }
 
-module.exports = PowerSchoolReportingTerm;</code></pre>
+module.exports = PowerSchoolAttendanceRecord;</code></pre>
         </article>
     </section>
 

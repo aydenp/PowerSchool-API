@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: PowerSchoolPeriod</title>
+    <title>JSDoc: Class: PowerSchoolFinalGrade</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: PowerSchoolPeriod</h1>
+    <h1 class="page-title">Class: PowerSchoolFinalGrade</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>PowerSchoolPeriod</h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>PowerSchoolFinalGrade</h2>
         
-            <div class="class-description">A PowerSchool period.</div>
+            <div class="class-description">An object representing the final grade in a PowerSchool course.</div>
         
     
 </header>
@@ -83,7 +83,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line5">line 5</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -131,85 +131,13 @@
 
         
             
-<h4 class="name" id="id"><span class="type-signature"></span>id<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="comment"><span class="type-signature"></span>comment<span class="type-signature"> :string</span></h4>
 
 
 
 
 <div class="description">
-    The ID of this period.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    The name of this period.
+    The teacher's comment for this grade, if available.
 </div>
 
 
@@ -257,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line19">line 19</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -275,13 +203,13 @@
 
         
             
-<h4 class="name" id="number"><span class="type-signature"></span>number<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="courseID"><span class="type-signature"></span>courseID<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    The number of this period.
+    The identifier of the course this grade is from.
 </div>
 
 
@@ -329,7 +257,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line25">line 25</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -347,13 +275,157 @@
 
         
             
-<h4 class="name" id="schoolNumber"><span class="type-signature"></span>schoolNumber<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="date"><span class="type-signature"></span>date<span class="type-signature"> :Date</span></h4>
 
 
 
 
 <div class="description">
-    The number of the school this period is from.
+    The date this mark was stored, if available.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Date</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="grade"><span class="type-signature"></span>grade<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    The grade received in this course, to be displayed.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="id"><span class="type-signature"></span>id<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The ID of this event.
 </div>
 
 
@@ -401,7 +473,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line31">line 31</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -419,13 +491,13 @@
 
         
             
-<h4 class="name" id="sortOrder"><span class="type-signature"></span>sortOrder<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="percentage"><span class="type-signature"></span>percentage<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    A number to use to sort this period among others.
+    The grade received in this course as a percentage (value from 0-1), if can be calculated.
 </div>
 
 
@@ -473,7 +545,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line37">line 37</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -491,13 +563,13 @@
 
         
             
-<h4 class="name" id="yearID"><span class="type-signature"></span>yearID<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="reportingTermID"><span class="type-signature"></span>reportingTermID<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    The year ID of this period.
+    The identifier of the reporting term this grade is from.
 </div>
 
 
@@ -545,7 +617,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line43">line 43</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -573,7 +645,7 @@
     
 
     
-    <h4 class="name" id="getSchool"><span class="type-signature"></span>getSchool<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="PowerSchoolSchool.html">PowerSchoolSchool</a>}</span></h4>
+    <h4 class="name" id="getCourse"><span class="type-signature"></span>getCourse<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="PowerSchoolCourse.html">PowerSchoolCourse</a>}</span></h4>
     
 
     
@@ -581,7 +653,7 @@
 
 
 <div class="description">
-    Get the school this period is from.
+    Get the course this grade is from.
 </div>
 
 
@@ -625,7 +697,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_PowerSchoolPeriod.js.html">models/PowerSchoolPeriod.js</a>, <a href="models_PowerSchoolPeriod.js.html#line54">line 54</a>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -659,7 +731,111 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="PowerSchoolSchool.html">PowerSchoolSchool</a></span>
+<span class="param-type"><a href="PowerSchoolCourse.html">PowerSchoolCourse</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getReportingTerm"><span class="type-signature"></span>getReportingTerm<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get the reporting term this grade is from.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_PowerSchoolFinalGrade.js.html">models/PowerSchoolFinalGrade.js</a>, <a href="models_PowerSchoolFinalGrade.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a></span>
 
 
     </dd>

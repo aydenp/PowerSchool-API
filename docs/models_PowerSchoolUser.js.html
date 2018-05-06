@@ -35,6 +35,12 @@ const PowerSchoolStudent = require("./PowerSchoolStudent");
 const PowerSchoolStudentInfo = require("./PowerSchoolStudentInfo");
 const PowerSchoolSchool = require("./PowerSchoolSchool");
 const PowerSchoolTeacher = require("./PowerSchoolTeacher");
+const PowerSchoolAssignment = require("./PowerSchoolAssignment");
+const PowerSchoolAssignmentScore = require("./PowerSchoolAssignmentScore");
+const PowerSchoolAssignmentCategory = require("./PowerSchoolAssignmentCategory");
+const PowerSchoolAttendanceRecord = require("./PowerSchoolAttendanceRecord");
+const PowerSchoolAttendanceCode = require("./PowerSchoolAttendanceCode");
+const PowerSchoolFinalGrade = require("./PowerSchoolFinalGrade");
 
 /** 
  * A PowerSchool API user, which holds information about the user and methods to interact with them.
@@ -82,26 +88,52 @@ class PowerSchoolUser {
             this.api.client.getStudentData(data, this.api.requestOptions, (err, result) => {
                 if(!result || !result.return || !result.return.studentDataVOs) return reject(err);
                 var data = result.return.studentDataVOs;
+
                 // Deserialize any data we might need for special types
-                var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data)); // for some reason sometimes is an array, sometimes is one school.
+                var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
                 var teachers = data.teachers.map((data) => PowerSchoolTeacher.fromData(data));
                 var terms = data.terms.map((data) => PowerSchoolTerm.fromData(data, this.api));
                 var reportingTerms = data.reportingTerms.map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
+                var assignments = data.assignments.map((data) => PowerSchoolAssignment.fromData(data, this.api));
+                var assignmentScores = data.assignmentScores.map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
+                var attendanceCodes = data.attendanceCodes.map((data) => PowerSchoolAttendanceCode.fromData(data, this.api));
+                var periods = data.periods.map((data) => PowerSchoolPeriod.fromData(data, this.api));
+                var courses = data.sections.map((data) => PowerSchoolCourse.fromData(data, this.api));
+                var finalGrades = data.finalGrades.map((data) => PowerSchoolFinalGrade.fromData(data, this.api));
+
+                // Add assignments to their categories
+                var assignmentCategories = {};
+                data.assignmentCategories.forEach((data) => assignmentCategories[data.id] = PowerSchoolAssignmentCategory.fromData(data, this.api));
+                assignments.filter((a) => assignmentCategories[a.categoryID]).forEach((a) => assignmentCategories[a.categoryID].assignments.push(a));
+
                 // Store information needed for other data mappings
                 this.api.storeCacheInfo(teachers, "teachers");
                 this.api.storeCacheInfo(schools, "schools", "schoolNumber");
+                this.api.storeCacheInfo(periods, "periods");
+                this.api.storeCacheInfo(courses, "courses");
+                this.api.storeCacheInfo(finalGrades, "finalGrades", "courseID");
                 this.api.storeCacheInfo(terms, "terms");
                 this.api.storeCacheInfo(reportingTerms, "reportingTerms");
+                this.api.storeCacheInfo(Object.values(assignmentCategories), "assignmentCategories");
+                this.api.storeCacheInfo(assignments, "assignments");
+                this.api.storeCacheInfo(assignmentScores, "assignmentScores", "assignmentID");
+                this.api.storeCacheInfo(attendanceCodes, "attendanceCodes");
+
                 // Store the rest of the data for use in the student model
                 this.studentData.schools = schools;
                 this.studentData.teachers = teachers;
-                this.studentData.periods = data.periods.map((data) => PowerSchoolPeriod.fromData(data, this.api));
-                this.studentData.courses = data.sections.map((data) => PowerSchoolCourse.fromData(data, this.api));
+                this.studentData.periods = periods;
+                this.studentData.courses = courses;
                 this.studentData.terms = terms;
                 this.studentData.reportingTerms = reportingTerms;
                 this.studentData.notInSessionDays = data.notInSessionDays.map((data) => PowerSchoolEvent.fromData(data, this.api));
                 this.studentData.student = PowerSchoolStudent.fromData(data.student, this.api);
                 this.studentData.yearID = data.yearId;
+                this.studentData.assignmentCategories = Object.values(assignmentCategories);
+                this.studentData.attendanceRecords = data.attendance.map((data) => PowerSchoolAttendanceRecord.fromData(data, this.api));
+                this.studentData.attendanceCodes = attendanceCodes;
+                this.studentData.finalGrades = finalGrades;
+
                 resolve(this.studentData);
             });
         });
@@ -118,13 +150,13 @@ module.exports = PowerSchoolUser;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PowerSchoolAPI.html">PowerSchoolAPI</a></li><li><a href="PowerSchoolCourse.html">PowerSchoolCourse</a></li><li><a href="PowerSchoolEvent.html">PowerSchoolEvent</a></li><li><a href="PowerSchoolPeriod.html">PowerSchoolPeriod</a></li><li><a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a></li><li><a href="PowerSchoolSchool.html">PowerSchoolSchool</a></li><li><a href="PowerSchoolStudent.html">PowerSchoolStudent</a></li><li><a href="PowerSchoolStudentInfo.html">PowerSchoolStudentInfo</a></li><li><a href="PowerSchoolTeacher.html">PowerSchoolTeacher</a></li><li><a href="PowerSchoolTerm.html">PowerSchoolTerm</a></li><li><a href="PowerSchoolUser.html">PowerSchoolUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PowerSchoolAPI.html">PowerSchoolAPI</a></li><li><a href="PowerSchoolAssignment.html">PowerSchoolAssignment</a></li><li><a href="PowerSchoolAssignmentCategory.html">PowerSchoolAssignmentCategory</a></li><li><a href="PowerSchoolAssignmentScore.html">PowerSchoolAssignmentScore</a></li><li><a href="PowerSchoolAttendanceCode.html">PowerSchoolAttendanceCode</a></li><li><a href="PowerSchoolAttendanceRecord.html">PowerSchoolAttendanceRecord</a></li><li><a href="PowerSchoolCourse.html">PowerSchoolCourse</a></li><li><a href="PowerSchoolEvent.html">PowerSchoolEvent</a></li><li><a href="PowerSchoolFinalGrade.html">PowerSchoolFinalGrade</a></li><li><a href="PowerSchoolPeriod.html">PowerSchoolPeriod</a></li><li><a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a></li><li><a href="PowerSchoolSchool.html">PowerSchoolSchool</a></li><li><a href="PowerSchoolStudent.html">PowerSchoolStudent</a></li><li><a href="PowerSchoolStudentInfo.html">PowerSchoolStudentInfo</a></li><li><a href="PowerSchoolTeacher.html">PowerSchoolTeacher</a></li><li><a href="PowerSchoolTerm.html">PowerSchoolTerm</a></li><li><a href="PowerSchoolUser.html">PowerSchoolUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Oct 28 2017 14:18:52 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun May 06 2018 16:24:19 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

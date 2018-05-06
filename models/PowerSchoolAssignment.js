@@ -90,6 +90,14 @@ class PowerSchoolAssignment {
     getScore() {
         return this.api._cachedInfo.assignmentScores[this.id];
     }
+
+    /**
+     * Get the category this assigmment belongs to.
+     * @return {PowerSchoolAssignmentCategory}
+     */
+    getCategory() {
+        return this.api._cachedInfo.assignmentCategories[this.categoryID];
+    }
 }
 
 module.exports = PowerSchoolAssignment;

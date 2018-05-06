@@ -59,10 +59,10 @@ class PowerSchoolStudentInfo {
         this.yearID = null;
 
         /**
-         * The student's assignments.
-         * @member {Array.<PowerSchoolAssignment>}
+         * The student's assignments, sorted into categories
+         * @member {Array.<PowerSchoolAssignmentCategory>}
          */
-        this.assignments = null;
+        this.assignmentCategories = null;
     }
 }
 

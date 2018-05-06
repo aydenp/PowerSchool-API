@@ -9,6 +9,7 @@ const PowerSchoolSchool = require("./PowerSchoolSchool");
 const PowerSchoolTeacher = require("./PowerSchoolTeacher");
 const PowerSchoolAssignment = require("./PowerSchoolAssignment");
 const PowerSchoolAssignmentScore = require("./PowerSchoolAssignmentScore");
+const PowerSchoolAssignmentCategory = require("./PowerSchoolAssignmentCategory");
 
 /** 
  * A PowerSchool API user, which holds information about the user and methods to interact with them.
@@ -56,6 +57,7 @@ class PowerSchoolUser {
             this.api.client.getStudentData(data, this.api.requestOptions, (err, result) => {
                 if(!result || !result.return || !result.return.studentDataVOs) return reject(err);
                 var data = result.return.studentDataVOs;
+
                 // Deserialize any data we might need for special types
                 var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data)); // for some reason sometimes is an array, sometimes is one school.
                 var teachers = data.teachers.map((data) => PowerSchoolTeacher.fromData(data));
@@ -63,13 +65,21 @@ class PowerSchoolUser {
                 var reportingTerms = data.reportingTerms.map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
                 var assignments = data.assignments.map((data) => PowerSchoolAssignment.fromData(data, this.api));
                 var assignmentScores = data.assignmentScores.map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
+
+                // Add assignments to their categories
+                var assignmentCategories = {};
+                data.assignmentCategories.forEach((data) => assignmentCategories[data.id] = PowerSchoolAssignmentCategory.fromData(data, this.api));
+                assignments.filter((a) => assignmentCategories[a.categoryID]).forEach((a) => assignmentCategories[a.categoryID].assignments.push(a));
+
                 // Store information needed for other data mappings
                 this.api.storeCacheInfo(teachers, "teachers");
                 this.api.storeCacheInfo(schools, "schools", "schoolNumber");
                 this.api.storeCacheInfo(terms, "terms");
                 this.api.storeCacheInfo(reportingTerms, "reportingTerms");
+                this.api.storeCacheInfo(Object.values(assignmentCategories), "assignmentCategories");
                 this.api.storeCacheInfo(assignments, "assignments");
                 this.api.storeCacheInfo(assignmentScores, "assignmentScores", "assignmentID");
+
                 // Store the rest of the data for use in the student model
                 this.studentData.schools = schools;
                 this.studentData.teachers = teachers;
@@ -80,7 +90,7 @@ class PowerSchoolUser {
                 this.studentData.notInSessionDays = data.notInSessionDays.map((data) => PowerSchoolEvent.fromData(data, this.api));
                 this.studentData.student = PowerSchoolStudent.fromData(data.student, this.api);
                 this.studentData.yearID = data.yearId;
-                this.studentData.assignments = assignments;
+                this.studentData.assignmentCategories = Object.values(assignmentCategories);
                 resolve(this.studentData);
             });
         });

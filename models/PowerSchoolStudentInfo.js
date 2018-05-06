@@ -57,6 +57,12 @@ class PowerSchoolStudentInfo {
          * @member {number}
          */
         this.yearID = null;
+
+        /**
+         * The student's assignments.
+         * @member {Array.<PowerSchoolAssignment>}
+         */
+        this.assignments = null;
     }
 }
 

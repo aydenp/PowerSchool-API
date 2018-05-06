@@ -7,6 +7,8 @@ const PowerSchoolStudent = require("./PowerSchoolStudent");
 const PowerSchoolStudentInfo = require("./PowerSchoolStudentInfo");
 const PowerSchoolSchool = require("./PowerSchoolSchool");
 const PowerSchoolTeacher = require("./PowerSchoolTeacher");
+const PowerSchoolAssignment = require("./PowerSchoolAssignment");
+const PowerSchoolAssignmentScore = require("./PowerSchoolAssignmentScore");
 
 /** 
  * A PowerSchool API user, which holds information about the user and methods to interact with them.
@@ -59,11 +61,15 @@ class PowerSchoolUser {
                 var teachers = data.teachers.map((data) => PowerSchoolTeacher.fromData(data));
                 var terms = data.terms.map((data) => PowerSchoolTerm.fromData(data, this.api));
                 var reportingTerms = data.reportingTerms.map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
+                var assignments = data.assignments.map((data) => PowerSchoolAssignment.fromData(data, this.api));
+                var assignmentScores = data.assignmentScores.map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
                 // Store information needed for other data mappings
                 this.api.storeCacheInfo(teachers, "teachers");
                 this.api.storeCacheInfo(schools, "schools", "schoolNumber");
                 this.api.storeCacheInfo(terms, "terms");
                 this.api.storeCacheInfo(reportingTerms, "reportingTerms");
+                this.api.storeCacheInfo(assignments, "assignments");
+                this.api.storeCacheInfo(assignmentScores, "assignmentScores", "assignmentID");
                 // Store the rest of the data for use in the student model
                 this.studentData.schools = schools;
                 this.studentData.teachers = teachers;
@@ -74,6 +80,7 @@ class PowerSchoolUser {
                 this.studentData.notInSessionDays = data.notInSessionDays.map((data) => PowerSchoolEvent.fromData(data, this.api));
                 this.studentData.student = PowerSchoolStudent.fromData(data.student, this.api);
                 this.studentData.yearID = data.yearId;
+                this.studentData.assignments = assignments;
                 resolve(this.studentData);
             });
         });

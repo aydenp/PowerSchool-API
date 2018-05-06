@@ -3,7 +3,7 @@
  * @hideconstructor
 */
 class PowerSchoolAssignment {
-    constructor(api, id, assignmentID, name, abbreviation, categoryID, description, dueDate, gradeBookType, weight, includeInFinalGrades, publishScores, scorePublishDate) {
+    constructor(api, id, assignmentID, name, abbreviation, categoryID, courseID, description, dueDate, gradeBookType, weight, includeInFinalGrades, publishScores, scorePublishDate) {
         this.api = api;
 
         /**
@@ -35,6 +35,12 @@ class PowerSchoolAssignment {
          * @member {number}
          */
         this.categoryID = categoryID;
+
+        /**
+         * The course this assignment belongs to.
+         * @member {number}
+         */
+        this.courseID = courseID;
 
         /**
          * The description of this assignment, if available.
@@ -80,7 +86,7 @@ class PowerSchoolAssignment {
     }
 
     static fromData(data, api) {
-        return new PowerSchoolAssignment(api, data.id, data.assignmentid, data.name, data.abbreviation, data.categoryId, data.description, new Date(data.dueDate), data.gradeBookType, data.weight, data.includeinfinalgrades == 1, data.publishscores == 1, data.scorePublishDate ? new Date(data.scorePublishDate) : null);
+        return new PowerSchoolAssignment(api, data.id, data.assignmentid, data.name, data.abbreviation, data.categoryId, data.sectionid, data.description, new Date(data.dueDate), data.gradeBookType, data.weight, data.includeinfinalgrades == 1, data.publishscores == 1, data.scorePublishDate ? new Date(data.scorePublishDate) : null);
     }
 
     /**
@@ -97,6 +103,14 @@ class PowerSchoolAssignment {
      */
     getCategory() {
         return this.api._cachedInfo.assignmentCategories[this.categoryID];
+    }
+
+    /**
+     * Get the course this assigmment belongs to.
+     * @return {PowerSchoolCourse}
+     */
+    getCourse() {
+        return this.api._cachedInfo.courses[this.courseID];
     }
 }
 

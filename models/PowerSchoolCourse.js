@@ -114,6 +114,15 @@ class PowerSchoolCourse {
     getFinalGrade() {
         return this.api._cachedInfo.finalGrades[this.id];
     }
+
+    /**
+     * Get any assignments associated with this course.
+     * **NOTE:** This function filters through all assignments every time it is called, so use it sparingly.
+     * @return {Array.<PowerSchoolAssignment>}
+     */
+    getAssignments() {
+        return Object.values(this.api._cachedInfo.assignments).filter((a) => a.courseID == this.id);
+    }
 }
 
 module.exports = PowerSchoolCourse;

@@ -1,5 +1,5 @@
 /** 
- * A PowerSchool attendance record.
+ * A PowerSchool attendance record, such as a deviation from normal attendance.
  * @hideconstructor
 */
 class PowerSchoolAttendanceRecord {

@@ -75,6 +75,12 @@ class PowerSchoolStudentInfo {
          * @member {Array.<PowerSchoolAttendanceCode>}
          */
         this.attendanceCodes = null;
+
+        /**
+         * The student's final grades.
+         * @member {Array.<PowerSchoolFinalGrade>}
+         */
+        this.finalGrades = null;
     }
 }
 

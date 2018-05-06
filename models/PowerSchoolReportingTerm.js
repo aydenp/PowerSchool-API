@@ -17,6 +17,7 @@ class PowerSchoolReportingTerm {
          * @member {string}
          */
         this.title = title;
+
         /**
          * The ID of this reporting term's term.
          * @member {number}
@@ -58,6 +59,14 @@ class PowerSchoolReportingTerm {
      */
     getTerm() {
         return this.api._cachedInfo.terms[this.termID];
+    }
+
+    /**
+     * Get the final grades returned from this reporting term.
+     * @return {Array.<PowerSchoolFinalGrade>}
+     */
+    getFinalGrades() {
+        return Object.values(this.api._cachedInfo.finalGrades).filter((g) => g.reportingTermID == this.id);
     }
 }
 

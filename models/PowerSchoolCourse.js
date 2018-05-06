@@ -106,6 +106,14 @@ class PowerSchoolCourse {
     getTeacher() {
         return this.api._cachedInfo.teachers[this.teacherID];
     }
+
+    /**
+     * Get the final grade received in this course, if available.
+     * @return {PowerSchoolFinalGrade}
+     */
+    getFinalGrade() {
+        return this.api._cachedInfo.finalGrades[this.id];
+    }
 }
 
 module.exports = PowerSchoolCourse;

@@ -12,6 +12,7 @@ const PowerSchoolAssignmentScore = require("./PowerSchoolAssignmentScore");
 const PowerSchoolAssignmentCategory = require("./PowerSchoolAssignmentCategory");
 const PowerSchoolAttendanceRecord = require("./PowerSchoolAttendanceRecord");
 const PowerSchoolAttendanceCode = require("./PowerSchoolAttendanceCode");
+const PowerSchoolFinalGrade = require("./PowerSchoolFinalGrade");
 
 /** 
  * A PowerSchool API user, which holds information about the user and methods to interact with them.
@@ -67,9 +68,10 @@ class PowerSchoolUser {
                 var reportingTerms = data.reportingTerms.map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
                 var assignments = data.assignments.map((data) => PowerSchoolAssignment.fromData(data, this.api));
                 var assignmentScores = data.assignmentScores.map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
-                var attendanceRecords = data.attendance.map((data) => PowerSchoolAttendanceRecord.fromData(data, this.api));
                 var attendanceCodes = data.attendanceCodes.map((data) => PowerSchoolAttendanceCode.fromData(data, this.api));
                 var periods = data.periods.map((data) => PowerSchoolPeriod.fromData(data, this.api));
+                var courses = data.sections.map((data) => PowerSchoolCourse.fromData(data, this.api));
+                var finalGrades = data.finalGrades.map((data) => PowerSchoolFinalGrade.fromData(data, this.api));
 
                 // Add assignments to their categories
                 var assignmentCategories = {};
@@ -80,6 +82,8 @@ class PowerSchoolUser {
                 this.api.storeCacheInfo(teachers, "teachers");
                 this.api.storeCacheInfo(schools, "schools", "schoolNumber");
                 this.api.storeCacheInfo(periods, "periods");
+                this.api.storeCacheInfo(courses, "courses");
+                this.api.storeCacheInfo(finalGrades, "finalGrades", "courseID");
                 this.api.storeCacheInfo(terms, "terms");
                 this.api.storeCacheInfo(reportingTerms, "reportingTerms");
                 this.api.storeCacheInfo(Object.values(assignmentCategories), "assignmentCategories");
@@ -91,15 +95,16 @@ class PowerSchoolUser {
                 this.studentData.schools = schools;
                 this.studentData.teachers = teachers;
                 this.studentData.periods = periods;
-                this.studentData.courses = data.sections.map((data) => PowerSchoolCourse.fromData(data, this.api));
+                this.studentData.courses = courses;
                 this.studentData.terms = terms;
                 this.studentData.reportingTerms = reportingTerms;
                 this.studentData.notInSessionDays = data.notInSessionDays.map((data) => PowerSchoolEvent.fromData(data, this.api));
                 this.studentData.student = PowerSchoolStudent.fromData(data.student, this.api);
                 this.studentData.yearID = data.yearId;
                 this.studentData.assignmentCategories = Object.values(assignmentCategories);
-                this.studentData.attendanceRecords = attendanceRecords;
+                this.studentData.attendanceRecords = data.attendance.map((data) => PowerSchoolAttendanceRecord.fromData(data, this.api));
                 this.studentData.attendanceCodes = attendanceCodes;
+                this.studentData.finalGrades = finalGrades;
 
                 resolve(this.studentData);
             });

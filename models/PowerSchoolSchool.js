@@ -3,7 +3,9 @@
  * @hideconstructor
 */
 class PowerSchoolSchool {
-    constructor(id, name, schoolNumber, formattedAddress, addressParts, phone, fax, lowGrade, highGrade, disabled, disabledMessage, disabledFeatures, abbreviation) {
+    constructor(api, id, name, schoolNumber, formattedAddress, addressParts, phone, fax, lowGrade, highGrade, disabled, disabledMessage, disabledFeatures, abbreviation) {
+        this.api = api;
+
         /**
          * The ID of this school.
          * @member {number}
@@ -83,8 +85,16 @@ class PowerSchoolSchool {
         this.abbreviation = abbreviation;
     }
 
-    static fromData(data) {
-        return new PowerSchoolSchool(data.schoolId, data.name, data.schoolNumber, data.address, { streetAddress: data.schooladdress, city: data.schoolcity, state: data.schoolstate, country: data.schoolcountry, zip: data.schoolzip }, data.schoolphone, data.schoolfax, data.lowGrade, data.highGrade, data.schoolDisabled, data.schoolDisabledTitle || data.schoolDisabledMessage ? { title: data.schoolDisabledTitle, message: data.schoolDisabledMessage } : null, data.disabledFeatures, data.abbreviation);
+    static fromData(data, api) {
+        return new PowerSchoolSchool(api, data.schoolId, data.name, data.schoolNumber, data.address, { streetAddress: data.schooladdress, city: data.schoolcity, state: data.schoolstate, country: data.schoolcountry, zip: data.schoolzip }, data.schoolphone, data.schoolfax, data.lowGrade, data.highGrade, data.schoolDisabled, data.schoolDisabledTitle || data.schoolDisabledMessage ? { title: data.schoolDisabledTitle, message: data.schoolDisabledMessage } : null, data.disabledFeatures, data.abbreviation);
+    }
+
+    /**
+     * Get the attendance codes that belong to this school.
+     * @return {PowerSchoolAttendanceCode}
+     */
+    getAttendanceCodes() {
+        return Object.values(this.api._cachedInfo.attendanceCodes).filter((c) => c.schoolNumber == this.schoolNumber);
     }
 }
 

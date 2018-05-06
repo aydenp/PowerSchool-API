@@ -10,6 +10,7 @@ const PowerSchoolTeacher = require("./PowerSchoolTeacher");
 const PowerSchoolAssignment = require("./PowerSchoolAssignment");
 const PowerSchoolAssignmentScore = require("./PowerSchoolAssignmentScore");
 const PowerSchoolAssignmentCategory = require("./PowerSchoolAssignmentCategory");
+const PowerSchoolAttendanceCode = require("./PowerSchoolAttendanceCode");
 
 /** 
  * A PowerSchool API user, which holds information about the user and methods to interact with them.
@@ -59,12 +60,13 @@ class PowerSchoolUser {
                 var data = result.return.studentDataVOs;
 
                 // Deserialize any data we might need for special types
-                var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data)); // for some reason sometimes is an array, sometimes is one school.
+                var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
                 var teachers = data.teachers.map((data) => PowerSchoolTeacher.fromData(data));
                 var terms = data.terms.map((data) => PowerSchoolTerm.fromData(data, this.api));
                 var reportingTerms = data.reportingTerms.map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
                 var assignments = data.assignments.map((data) => PowerSchoolAssignment.fromData(data, this.api));
                 var assignmentScores = data.assignmentScores.map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
+                var attendanceCodes = data.attendanceCodes.map((data) => PowerSchoolAttendanceCode.fromData(data, this.api));
 
                 // Add assignments to their categories
                 var assignmentCategories = {};
@@ -79,6 +81,8 @@ class PowerSchoolUser {
                 this.api.storeCacheInfo(Object.values(assignmentCategories), "assignmentCategories");
                 this.api.storeCacheInfo(assignments, "assignments");
                 this.api.storeCacheInfo(assignmentScores, "assignmentScores", "assignmentID");
+                this.api.storeCacheInfo(attendanceCodes, "attendanceCodesByID");
+                this.api.storeCacheInfo(attendanceCodes, "attendanceCodes", "code");
 
                 // Store the rest of the data for use in the student model
                 this.studentData.schools = schools;
@@ -91,6 +95,8 @@ class PowerSchoolUser {
                 this.studentData.student = PowerSchoolStudent.fromData(data.student, this.api);
                 this.studentData.yearID = data.yearId;
                 this.studentData.assignmentCategories = Object.values(assignmentCategories);
+                this.studentData.attendanceCodes = attendanceCodes;
+
                 resolve(this.studentData);
             });
         });

@@ -63,6 +63,18 @@ class PowerSchoolStudentInfo {
          * @member {Array.<PowerSchoolAssignmentCategory>}
          */
         this.assignmentCategories = null;
+
+        /**
+         * The student's attendance records (deviations from normal attendance).
+         * @member {Array.<PowerSchoolAttendanceRecord>}
+         */
+        this.attendanceRecords = null;
+
+        /**
+         * The student's available attendance codes.
+         * @member {Array.<PowerSchoolAttendanceCode>}
+         */
+        this.attendanceCodes = null;
     }
 }
 

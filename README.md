@@ -16,7 +16,7 @@ The provided [Test script](test.js) actually provides a pretty good example of h
 
 ## Documentation
 
-To take full advantage of the package, check out [the documentation](https://aydenp.github.io/PowerSchool-API/) and see of the methods and variables that are made available to you.
+To take full advantage of the package, check out [the documentation](https://aydenp.github.io/PowerSchool-API/) and see all of the methods and variables that are made available to you.
 
 ## Contributing
 

@@ -10,24 +10,23 @@ We currently support fetching a variety of data on the user. Due to a lack of te
 
 To install using NPM, type: `npm install powerschool-api --save`
 
-## Example Usage
+## Usage
 
 The provided [Test script](test.js) actually provides a pretty good example of how you would log a user in and fetch data like their courses. Check it out for a quick getting started example.
 
-## Full Documentation
+## Documentation
 
 To take full advantage of the package, check out [the documentation](https://aydenp.github.io/PowerSchool-API/) and see of the methods and variables that are made available to you.
 
 ## Contributing
 
-This library is nowhere near completion, as useful as it currently is for retrieving information. If you can, you're encouraged to contribute and make a [pull request](/pulls).
+Feel free to contribute to the source code of PassEncoder to make it something even better! Just try to adhere to the general coding style throughout, to make it as readable as possible.
 
-If you find an issue in the code or while using it, [create an issue](/issues/new).
+If you find an issue in the code or while using it, [create an issue](/issues/new). If you can, you're encouraged to contribute and make a [pull request](/pulls).
 
 ## License
 
-This project is licensed under the [MIT license](/LICENSE). Please make sure you comply with its terms while using the library.
-
+This project is licensed under the [MIT license](/LICENSE). Please make sure you comply with its terms while using it in any way.
 
 ## Links
 

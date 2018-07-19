@@ -63,19 +63,19 @@ class PowerSchoolUser {
 
                 // Deserialize any data we might need for special types
                 var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
-                var teachers = data.teachers.map((data) => PowerSchoolTeacher.fromData(data));
-                var terms = data.terms.map((data) => PowerSchoolTerm.fromData(data, this.api));
-                var reportingTerms = data.reportingTerms.map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
-                var assignments = data.assignments.map((data) => PowerSchoolAssignment.fromData(data, this.api));
-                var assignmentScores = data.assignmentScores.map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
-                var attendanceCodes = data.attendanceCodes.map((data) => PowerSchoolAttendanceCode.fromData(data, this.api));
-                var periods = data.periods.map((data) => PowerSchoolPeriod.fromData(data, this.api));
-                var courses = data.sections.map((data) => PowerSchoolCourse.fromData(data, this.api));
-                var finalGrades = data.finalGrades.map((data) => PowerSchoolFinalGrade.fromData(data, this.api));
+                var teachers = (data.teachers || []).map((data) => PowerSchoolTeacher.fromData(data));
+                var terms = (data.terms || []).map((data) => PowerSchoolTerm.fromData(data, this.api));
+                var reportingTerms = (data.reportingTerms || []).map((data) => PowerSchoolReportingTerm.fromData(data, this.api));
+                var assignments = (data.assignments || []).map((data) => PowerSchoolAssignment.fromData(data, this.api));
+                var assignmentScores = (data.assignmentScores || []).map((data) => PowerSchoolAssignmentScore.fromData(data, this.api));
+                var attendanceCodes = (data.attendanceCodes || []).map((data) => PowerSchoolAttendanceCode.fromData(data, this.api));
+                var periods = (data.periods || []).map((data) => PowerSchoolPeriod.fromData(data, this.api));
+                var courses = (data.sections || []).map((data) => PowerSchoolCourse.fromData(data, this.api));
+                var finalGrades = (data.finalGrades || []).map((data) => PowerSchoolFinalGrade.fromData(data, this.api));
 
                 // Add assignments to their categories
                 var assignmentCategories = {};
-                data.assignmentCategories.forEach((data) => assignmentCategories[data.id] = PowerSchoolAssignmentCategory.fromData(data, this.api));
+                (data.assignmentCategories || []).forEach((data) => assignmentCategories[data.id] = PowerSchoolAssignmentCategory.fromData(data, this.api));
                 assignments.filter((a) => assignmentCategories[a.categoryID]).forEach((a) => assignmentCategories[a.categoryID].assignments.push(a));
 
                 // Store information needed for other data mappings
@@ -98,11 +98,11 @@ class PowerSchoolUser {
                 this.studentData.courses = courses;
                 this.studentData.terms = terms;
                 this.studentData.reportingTerms = reportingTerms;
-                this.studentData.notInSessionDays = data.notInSessionDays.map((data) => PowerSchoolEvent.fromData(data, this.api));
+                this.studentData.notInSessionDays = (data.notInSessionDays || []).map((data) => PowerSchoolEvent.fromData(data, this.api));
                 this.studentData.student = PowerSchoolStudent.fromData(data.student, this.api);
                 this.studentData.yearID = data.yearId;
                 this.studentData.assignmentCategories = Object.values(assignmentCategories);
-                this.studentData.attendanceRecords = data.attendance.map((data) => PowerSchoolAttendanceRecord.fromData(data, this.api));
+                this.studentData.attendanceRecords = (data.attendance || []).map((data) => PowerSchoolAttendanceRecord.fromData(data, this.api));
                 this.studentData.attendanceCodes = attendanceCodes;
                 this.studentData.finalGrades = finalGrades;
 

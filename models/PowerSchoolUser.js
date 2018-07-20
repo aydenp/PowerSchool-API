@@ -62,7 +62,8 @@ class PowerSchoolUser {
                 var data = result.return.studentDataVOs;
 
                 // Deserialize any data we might need for special types
-                var schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
+                var schools = [];
+                if (data.schools) schools = (typeof data.schools === "array" ? data.schools : [data.schools]).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
                 var teachers = (data.teachers || []).map((data) => PowerSchoolTeacher.fromData(data));
                 var terms = (data.terms || []).map((data) => PowerSchoolTerm.fromData(data, this.api));
                 var reportingTerms = (data.reportingTerms || []).map((data) => PowerSchoolReportingTerm.fromData(data, this.api));

@@ -65,8 +65,7 @@ class PowerSchoolUser {
                     var studentData = new PowerSchoolStudentInfo();
 
                     // Deserialize any data we might need for special types
-                    var schools = [];
-                    if (data.schools) schools = this.safelyParseUnpredictableArray(data.schools).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
+                    var schools = this.safelyParseUnpredictableArray(data.schools).map((data) => PowerSchoolSchool.fromData(data, this.api)); // for some reason sometimes is an array, sometimes is one school.
                     var teachers = this.safelyParseUnpredictableArray(data.teachers).map((data) => PowerSchoolTeacher.fromData(data));
                     var terms = this.safelyParseUnpredictableArray(data.terms).map((data) => PowerSchoolTerm.fromData(data, this.api));
                     var reportingTerms = this.safelyParseUnpredictableArray(data.reportingTerms).map((data) => PowerSchoolReportingTerm.fromData(data, this.api));

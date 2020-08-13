@@ -20,7 +20,7 @@ To take full advantage of the package, check out [the documentation](https://ayd
 
 ## Contributing
 
-Feel free to contribute to the source code of PassEncoder to make it something even better! Just try to adhere to the general coding style throughout, to make it as readable as possible.
+Feel free to contribute to the source code of this project to make it something even better! Just try to adhere to the general coding style throughout, to make it as readable as possible.
 
 If you find an issue in the code or while using it, [create an issue](/issues/new). If you can, you're encouraged to contribute and make a [pull request](/pulls).
 

@@ -1,6 +1,6 @@
 # PowerSchool API for Node.js
 
-A Node.js library for interacting with the PowerSchool API.
+A Node.js library for interacting with the PowerSchool SIS API.
 
 We currently support fetching a variety of data on the user. Due to a lack of testing resources, we currently only support read operations. There are no API calls that modify user data or submit any information other than logging in.
 

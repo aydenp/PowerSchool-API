@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/PowerSchoolSchool.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/PowerSchoolSchool.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * A PowerSchool school information object.
+ * @hideconstructor
+*/
+class PowerSchoolSchool {
+    constructor(api, id, name, schoolNumber, formattedAddress, addressParts, phone, fax, lowGrade, highGrade, disabled, disabledMessage, disabledFeatures, abbreviation) {
+        this.api = api;
+
+        /**
+         * The ID of this school.
+         * @member {number}
+         */
+        this.id = id;
+        
+        /**
+         * The name of this school.
+         * @member {string}
+         */
+        this.name = name;
+    
+        /**
+         * The number of this school.
+         * @member {number}
+         */
+        this.schoolNumber = schoolNumber;
+
+        /**
+         * The school's address, formatted for display.
+         * @member {string}
+         */
+        this.formattedAddress = formattedAddress;
+
+        /**
+         * The part's making up the school's address (such as street address, city, state/province, country, ZIP/postal code).
+         * @member {object}
+         */
+        this.addressParts = addressParts;
+
+        /**
+         * The school's phone number, formatted for display.
+         * @member {string}
+         */
+        this.phone = phone;
+
+        /**
+         * The school's fax number, formatted for display.
+         * @member {string}
+         */
+        this.fax = fax;
+
+        /**
+         * The lowest grade this school has.
+         * @member {number}
+         */
+        this.lowGrade = lowGrade;
+
+        /**
+         * The highest grade this school has.
+         * @member {number}
+         */
+        this.highGrade = highGrade;
+
+        /**
+         * Whether or not the school is currently disabled.
+         * @member {boolean}
+         */
+        this.disabled = disabled;
+
+        /**
+         * Optional messages to display for the school if it is disabled (title and message keys in the object).
+         * @member {object}
+         */
+        this.disabledMessage = disabledMessage;
+
+        /**
+         * Features that are disabled on the school (object with true or false, on disabled status of each key).
+         * @member {object}
+         */
+        this.disabledFeatures = disabledFeatures;
+
+        /**
+         * The abbreviation for the school.
+         * @member {object}
+         */
+        this.abbreviation = abbreviation;
+    }
+
+    static fromData(data, api) {
+        return new PowerSchoolSchool(api, data.schoolId, data.name, data.schoolNumber, data.address, { streetAddress: data.schooladdress, city: data.schoolcity, state: data.schoolstate, country: data.schoolcountry, zip: data.schoolzip }, data.schoolphone, data.schoolfax, data.lowGrade, data.highGrade, data.schoolDisabled, data.schoolDisabledTitle || data.schoolDisabledMessage ? { title: data.schoolDisabledTitle, message: data.schoolDisabledMessage } : null, data.disabledFeatures, data.abbreviation);
+    }
+
+    /**
+     * Get the attendance codes that belong to this school.
+     * @return {PowerSchoolAttendanceCode}
+     */
+    getAttendanceCodes() {
+        return Object.values(this.api._cachedInfo.attendanceCodes).filter((c) => c.schoolNumber == this.schoolNumber);
+    }
+}
+
+module.exports = PowerSchoolSchool;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PowerSchoolAPI.html">PowerSchoolAPI</a></li><li><a href="PowerSchoolAssignment.html">PowerSchoolAssignment</a></li><li><a href="PowerSchoolAssignmentCategory.html">PowerSchoolAssignmentCategory</a></li><li><a href="PowerSchoolAssignmentScore.html">PowerSchoolAssignmentScore</a></li><li><a href="PowerSchoolAttendanceCode.html">PowerSchoolAttendanceCode</a></li><li><a href="PowerSchoolAttendanceRecord.html">PowerSchoolAttendanceRecord</a></li><li><a href="PowerSchoolCourse.html">PowerSchoolCourse</a></li><li><a href="PowerSchoolEvent.html">PowerSchoolEvent</a></li><li><a href="PowerSchoolFinalGrade.html">PowerSchoolFinalGrade</a></li><li><a href="PowerSchoolPeriod.html">PowerSchoolPeriod</a></li><li><a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a></li><li><a href="PowerSchoolSchool.html">PowerSchoolSchool</a></li><li><a href="PowerSchoolStudent.html">PowerSchoolStudent</a></li><li><a href="PowerSchoolStudentInfo.html">PowerSchoolStudentInfo</a></li><li><a href="PowerSchoolTeacher.html">PowerSchoolTeacher</a></li><li><a href="PowerSchoolTerm.html">PowerSchoolTerm</a></li><li><a href="PowerSchoolUser.html">PowerSchoolUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jun 04 2024 13:10:52 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,17 +1,9 @@
 const PowerSchoolAPI = require("./index");
-const readline = require("readline-sync");
-
-// try to load test credentials from file if exists
-var testCredentials = {};
-try {
-    testCredentials = require("./test-credentials.json");
-} catch (e) {}
 
 // Get information from the user.
-const url = testCredentials.url || readline.question("Enter the PowerSchool installation URL (such as: http://sales.powerschool.com): ");
-const username = testCredentials.username || readline.question("Enter your PowerSchool username: ");
-const password = testCredentials.password || readline.question("Enter your PowerSchool password: ");
-if(!url || !username || !password) return console.error("Invalid information entered.");
+const url = "Powerschool installation URL";
+const username = "Username";
+const password = "Password";
 
 // Create a new PowerSchool wrapper with our installation URL.
 var api = new PowerSchoolAPI(url);

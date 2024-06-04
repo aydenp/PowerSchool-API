@@ -3,7 +3,7 @@
     "sourceType": "module",
     "source": {
         "include": [ "." ],
-        "exclude": [ "./test.js", "./node_modules/" ]
+        "exclude": [ "./node_modules/" ]
     },
     "opts": {
         "encoding": "utf8",

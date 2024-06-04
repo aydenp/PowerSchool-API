@@ -1,14 +1,11 @@
 {
-  "name": "powerschool-api",
-  "version": "1.1.0",
+  "name": "powerschool-api-next",
+  "version": "1.1.1",
   "description": "A Node.js library for interacting with the PowerSchool API.",
   "main": "index.js",
-  "scripts": {
-    "test": "node test.js"
-  },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/aydenp/PowerSchool-API.git"
+    "url": "https://www.github.com/jpdagostino/PowerSchool-API.git"
   },
   "keywords": [
     "powerschool",
@@ -19,10 +16,15 @@
     "soap",
     "xml"
   ],
-  "author": "Ayden <madebyayden+npm@icloud.com> (https://www.madebyayden.co)",
+  "authors": [
+    "Ayden <madebyayden+npm@icloud.com> (https://www.madebyayden.co)",
+    "JP D'Agostino <jp@jpdagostino.com> (https://jpdagostino.com)"
+  ],
   "license": "MIT",
   "dependencies": {
-    "readline-sync": "^1.4.7",
-    "strong-soap": "^1.2.6"
+    "soap": "^1.0.3"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.3"
   }
 }

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/PowerSchoolAssignmentScore.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/PowerSchoolAssignmentScore.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * The score received for a PowerSchool assignment.
+ * @hideconstructor
+*/
+class PowerSchoolAssignmentScore {
+    constructor(api, id, assignmentID, collected, late, missing, exempt, gradeBookType, comment, score, letterGrade, percentage, scoreType) {
+        this.api = api;
+
+        /**
+         * The ID of this assignment.
+         * @member {number}
+         */
+        this.id = id;
+
+        /**
+         * The secondary ID of this assignment in the system.
+         * @member {number}
+         */
+        this.assignmentID = assignmentID;
+
+        /**
+         * Whether or not this assignment has been collected yet.
+         * @member {boolean}
+         */
+        this.collected = collected;
+
+        /**
+         * Whether or not this assignment is late.
+         * @member {boolean}
+         */
+        this.late = late;
+
+        /**
+         * Whether or not this assignment is missing.
+         * @member {boolean}
+         */
+        this.missing = missing;
+
+        /**
+         * Whether or not the student is exempt from completing this assignment.
+         * @member {boolean}
+         */
+        this.exempt = exempt;
+        
+        /**
+         * The grade book type for this assignment.
+         * @member {number}
+         */
+        this.gradeBookType = gradeBookType;
+        
+        /**
+         * The teacher's comment on this assignment, if available.
+         * @member {string}
+         */
+        this.comment = comment;
+
+        /**
+         * The score received on this assignment.
+         * @member {string}
+         */
+        this.score = score;
+
+        /**
+         * The score received on this assignment (as a percentage value from 0-1), if able to calculate.
+         * @member {number}
+         */
+        this.percentage = percentage;
+
+        /**
+         * The letter grade received on this assignment (can be any string used for display of score).
+         * @member {string}
+         */
+        this.letterGrade = letterGrade;
+        
+        /**
+         * The scoring type used on this assignment.
+         * @member {number}
+         */
+        this.scoreType = scoreType;
+    }
+
+    static fromData(data, api) {
+        // Calculate floating percentage from the odd string given
+        var percentage = Number.parseFloat(data.percent);
+        if (Number.isNaN(percentage)) percentage = null;
+        if (percentage !== null) percentage /= 100;
+
+        return new PowerSchoolAssignmentScore(api, data.id, data.assignmentId, data.collected, data.late, data.missing, data.exempt, data.gradeBookType, data.comment, data.score, data.letterGrade, percentage, data.scoretype);
+    }
+
+    /**
+     * Get the assignment this score was received on.
+     * @return {PowerSchoolAssignment}
+     */
+    getAssignment() {
+        return this.api._cachedInfo.assignments[this.assignmentID];
+    }
+}
+
+module.exports = PowerSchoolAssignmentScore;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PowerSchoolAPI.html">PowerSchoolAPI</a></li><li><a href="PowerSchoolAssignment.html">PowerSchoolAssignment</a></li><li><a href="PowerSchoolAssignmentCategory.html">PowerSchoolAssignmentCategory</a></li><li><a href="PowerSchoolAssignmentScore.html">PowerSchoolAssignmentScore</a></li><li><a href="PowerSchoolAttendanceCode.html">PowerSchoolAttendanceCode</a></li><li><a href="PowerSchoolAttendanceRecord.html">PowerSchoolAttendanceRecord</a></li><li><a href="PowerSchoolCourse.html">PowerSchoolCourse</a></li><li><a href="PowerSchoolEvent.html">PowerSchoolEvent</a></li><li><a href="PowerSchoolFinalGrade.html">PowerSchoolFinalGrade</a></li><li><a href="PowerSchoolPeriod.html">PowerSchoolPeriod</a></li><li><a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a></li><li><a href="PowerSchoolSchool.html">PowerSchoolSchool</a></li><li><a href="PowerSchoolStudent.html">PowerSchoolStudent</a></li><li><a href="PowerSchoolStudentInfo.html">PowerSchoolStudentInfo</a></li><li><a href="PowerSchoolTeacher.html">PowerSchoolTeacher</a></li><li><a href="PowerSchoolTerm.html">PowerSchoolTerm</a></li><li><a href="PowerSchoolUser.html">PowerSchoolUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jun 04 2024 13:10:52 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/PowerSchoolCourse.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/PowerSchoolCourse.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * A PowerSchool course.
+ * @hideconstructor
+*/
+class PowerSchoolCourse {
+    constructor(api, id, title, code, schoolNumber, termID, periodSort, roomName, sectionNumber, teacherID, expression, gradeBookType, description = null) {
+        this.api = api;
+
+        /**
+         * The ID of this course.
+         * @member {number}
+         */
+        this.id = id;
+
+        /**
+         * The title of this course.
+         * @member {string}
+         */
+        this.title = title;
+
+        /**
+         * The code of this course.
+         * @member {string}
+         */
+        this.code = code;
+
+        /**
+         * The number of the school this course is from.
+         * @member {number}
+         */
+        this.schoolNumber = schoolNumber;
+
+        /**
+         * The ID of the term this course is a part of.
+         * @member {number}
+         */
+        this.termID = termID;
+
+        /**
+         * A number to use to sort this period among others.
+         * @member {number}
+         */
+        this.periodSort = periodSort;
+
+        /**
+         * The name of the room this course takes place in.
+         * @member {string}
+         */
+        this.roomName = roomName;
+
+        /**
+         * The number of the section this course is in.
+         * @member {string}
+         */
+        this.sectionNumber = sectionNumber;
+
+        /**
+         * The ID of the teacher teaching this course.
+         * @member {string}
+         */
+        this.teacherID = teacherID;
+
+        /**
+         * An expression to use to sort this course's period among others.
+         * @member {string}
+         */
+        this.expression = expression;
+
+        /**
+         * The coursebook type of this course.
+         * @member {number}
+         */
+        this.gradeBookType = gradeBookType;
+
+        /**
+         * The description text of this course.
+         * @member {string}
+         */
+        this.description = description;
+    }
+
+    static fromData(data, api) {
+        return new PowerSchoolCourse(api, data.id, data.schoolCourseTitle, data.courseCode, data.schoolNumber, data.termID, data.periodSort, data.roomName, data.sectionNum, data.teacherID, data.expression, data.gradeBookType, data.description);
+    }
+
+    /**
+     * Get the term this course is a part of.
+     * @return {PowerSchoolTerm}
+     */
+    getTerm() {
+        return this.api._cachedInfo.terms[this.termID];
+    }
+
+    /**
+     * Get the school this course is from.
+     * @return {PowerSchoolSchool}
+     */
+    getSchool() {
+        return this.api._cachedInfo.schools[this.schoolNumber];
+    }
+
+    /**
+     * Get the teacher teaching this course.
+     * @return {PowerSchoolTeacher}
+     */
+    getTeacher() {
+        return this.api._cachedInfo.teachers[this.teacherID];
+    }
+
+    /**
+     * Get the final grade received in this course, if available.
+     * @return {PowerSchoolFinalGrade}
+     */
+    getFinalGrade() {
+        return this.api._cachedInfo.finalGrades[this.id];
+    }
+
+    /**
+     * Get any assignments associated with this course.
+     * **NOTE:** This function filters through all assignments every time it is called, so use it sparingly.
+     * @return {Array.&lt;PowerSchoolAssignment>}
+     */
+    getAssignments() {
+        return Object.values(this.api._cachedInfo.assignments).filter((a) => a.courseID == this.id);
+    }
+}
+
+module.exports = PowerSchoolCourse;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PowerSchoolAPI.html">PowerSchoolAPI</a></li><li><a href="PowerSchoolAssignment.html">PowerSchoolAssignment</a></li><li><a href="PowerSchoolAssignmentCategory.html">PowerSchoolAssignmentCategory</a></li><li><a href="PowerSchoolAssignmentScore.html">PowerSchoolAssignmentScore</a></li><li><a href="PowerSchoolAttendanceCode.html">PowerSchoolAttendanceCode</a></li><li><a href="PowerSchoolAttendanceRecord.html">PowerSchoolAttendanceRecord</a></li><li><a href="PowerSchoolCourse.html">PowerSchoolCourse</a></li><li><a href="PowerSchoolEvent.html">PowerSchoolEvent</a></li><li><a href="PowerSchoolFinalGrade.html">PowerSchoolFinalGrade</a></li><li><a href="PowerSchoolPeriod.html">PowerSchoolPeriod</a></li><li><a href="PowerSchoolReportingTerm.html">PowerSchoolReportingTerm</a></li><li><a href="PowerSchoolSchool.html">PowerSchoolSchool</a></li><li><a href="PowerSchoolStudent.html">PowerSchoolStudent</a></li><li><a href="PowerSchoolStudentInfo.html">PowerSchoolStudentInfo</a></li><li><a href="PowerSchoolTeacher.html">PowerSchoolTeacher</a></li><li><a href="PowerSchoolTerm.html">PowerSchoolTerm</a></li><li><a href="PowerSchoolUser.html">PowerSchoolUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jun 04 2024 13:10:52 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
